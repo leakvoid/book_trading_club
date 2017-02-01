@@ -1,0 +1,21 @@
+
+<% include ../shared/header %>
+
+<h1>Your trade requests</h1>
+
+<table>
+  <tr>
+    <th>Seller name</th>
+    <th>Book name</th>
+    <th>Status</th>
+  </tr>
+  <% transaction_list.forEach( function(t) { %>
+  <tr>
+    <td><%= t.seller_name %></td>
+    <td><%= t.book_name %></td>
+    <td><%= (t.is_accepted ? 'confirmed' : 'pending') %></td>
+  </tr>
+  <% }); %>
+</table>
+
+<% include ../shared/footer %>

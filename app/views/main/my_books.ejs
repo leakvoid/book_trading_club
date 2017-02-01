@@ -1,0 +1,28 @@
+
+<% include ../shared/header %>
+
+<h1>My books</h1>
+
+<form action="/add_book" accept-charset="UTF-8" method="post">
+
+  <input type="text" placeholder="Enter book name" name="book_name">
+  <input type="submit" value="Add Book" name="commit">
+
+</form>
+
+<h3>Book list</h3>
+
+<form action="/remove_book" accept-charset="UTF-8" method="post">
+
+  <table>
+  <% book_list.forEach( function(book) { %>
+    <tr>
+      <td><%= book.name %></td>
+      <td><input type="submit" value="Delete" name="book_id[<%= book._id %>]"></td>
+    </tr>
+  <% }); %>
+  </table>
+
+</form>
+
+<% include ../shared/footer %>

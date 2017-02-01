@@ -3,4 +3,25 @@
     <title>Home Page</title>
   </head>
   <body>
-    <% include auth %>
+<table>
+  <tr>
+    <td>
+      <a href="/all_books">All Books</a>
+    </td>
+    <td>
+      <a href="/my_books">My Books</a>
+    </td>
+    <td>
+      <a href="/out_transactions">My Requests</a>
+    </td>
+    <td>
+      <a href="/inc_transactions">Requests From Others</a>
+    </td>
+    <td>
+      <a href="/settings">Settings</a>
+    </td>
+    <td>
+      <% include auth %>
+    </td>
+  </tr>
+</table>

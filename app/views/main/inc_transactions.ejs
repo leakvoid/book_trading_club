@@ -1,0 +1,27 @@
+
+<% include ../shared/header %>
+
+<h1>Trade requests for you</h1>
+
+<form action="/confirm_transaction" accept-charset="UTF-8" method="post">
+
+  <table>
+    <tr>
+      <th>Buyer name</th>
+      <th>Book name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    <% transaction_list.forEach( function(t) { %>
+    <tr>
+      <td><%= t.buyer_name %></td>
+      <td><%= t.book_name %></td>
+      <td><%= (t.is_accepted ? 'confirmed' : 'pending') %></td>
+      <td><input type="submit" value="Confirm Request" name="transaction_id[<%= t.id %>]" <% if(t.is_accepted) { %> disabled <% } %>></td>
+    </tr>
+    <% }); %>
+  </table>
+
+</form>
+
+<% include ../shared/footer %>

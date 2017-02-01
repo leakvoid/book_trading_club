@@ -1,0 +1,21 @@
+
+<% include ../shared/header %>
+
+<h1>All books</h1>
+
+<h3>Book list</h3>
+
+<form action="/init_transaction" accept-charset="UTF-8" method="post">
+
+  <table>
+  <% book_list.forEach( function(book) { %>
+    <tr>
+      <td><%= book.name %></td>
+      <td><input type="submit" value="Trade" name="book_id[<%= book._id %>]"></td>
+    </tr>
+  <% }); %>
+  </table>
+
+</form>
+
+<% include ../shared/footer %>
