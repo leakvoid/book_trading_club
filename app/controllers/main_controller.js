@@ -55,27 +55,27 @@ function MainController() {
     }
 
     function find_out_transactions(seller_id, callback) {
-        t.buyer_name;
-        t.book_name;
-        t.is_accepted;
-        t.id;
+        //t.buyer_name;
+        //t.book_name;
+        //t.is_accepted;
+        //t.id;
     }
 
     function find_inc_transactions(buyer_id, callback) {
-        t.seller_name;
-        t.book_name;
-        t.is_accepted;
-        t.id;
+        //t.seller_name;
+        //t.book_name;
+        //t.is_accepted;
+        //t.id;
     }
 
     function save_transaction(data, callback) {
-        data.user_id;
-        data.book_id;
+        //data.user_id;
+        //data.book_id;
     }
 
     function update_transaction_status(data, callback) {
-        data.transaction_id;
-        data.is_accepted;
+        //data.transaction_id;
+        //data.is_accepted;
     }
 
     /* books */
