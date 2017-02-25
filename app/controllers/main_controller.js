@@ -54,7 +54,26 @@ function MainController() {
         });
     }
 
+    function find_user_by_book(book_id, callback) {
+        Users
+            .findOne({ 'books._id': book_id })
+            .exec( function(err, user) {
+                if(err)
+                    return callback(err);
+
+                callback(null, { 'user': user });
+            });
+    }
+
     function find_out_transactions(seller_id, callback) {
+        Transactions
+            .find({'seller_id': seller_id})
+            .exec( function(err, tr) {
+                if(err)
+                    return callback(err);
+
+                callback(null, { 'transactions': tr });
+            });
         //t.buyer_name;
         //t.book_name;
         //t.is_accepted;
@@ -62,6 +81,14 @@ function MainController() {
     }
 
     function find_inc_transactions(buyer_id, callback) {
+        Transactions
+            .find({'buyer_id': buyer_id})
+            .exec( function(err, tr) {
+                if(err)
+                    return callback(err);
+
+                callback(null, { 'transactions': tr });
+            });
         //t.seller_name;
         //t.book_name;
         //t.is_accepted;
@@ -69,13 +96,35 @@ function MainController() {
     }
 
     function save_transaction(data, callback) {
-        //data.user_id;
-        //data.book_id;
+        var tr = new Transactions();
+        tr.buyer_id = data.buyer_id;
+        tr.seller_id = data.seller_id;
+        tr.book_id = data.book_id;
+        tr.is_accepted = false;
+
+        tr.save(function(err, res) {
+            if(err)
+                return callback(err);
+
+            callback(null, { 'transaction': res });
+        });
     }
 
     function update_transaction_status(data, callback) {
-        //data.transaction_id;
-        //data.is_accepted;
+        Transactions
+            .findById( data.transaction_id )
+            .exec( function(err, tr) {
+                if(err)
+                    return callback(err);
+
+                tr.is_accepted = data.is_accepted;
+                tr.save( function(err, res) {
+                    if(err)
+                        return callback(err);
+
+                    callback(null, { 'transaction': res });
+                });
+            });
     }
 
     /* books */
@@ -149,11 +198,16 @@ function MainController() {
     };
 
     this.init_transaction = function(req, res) {
-        save_transaction( { 'user_id': req.user._id,
-                            'book_id': Object.keys(req.body.book_id)[0] }, function(err, st_res) {
-            if(err) throw err;
+        var book_id = Object.keys(req.body.book_id)[0];
 
-            res.redirect('/my_books');
+        find_user_by_book( book_id, function(err, fubb_res) {
+            save_transaction( { 'buyer_id': req.user._id,
+                                'seller_id': fubb_res.user._id,
+                                'book_id': book_id }, function(err, st_res) {
+                if(err) throw err;
+
+                res.redirect('/my_books');
+            });
         });
     };
 
@@ -168,9 +222,24 @@ function MainController() {
 
     /*settings */
     this.settings = function(req, res) {
-        res.render('main/settings',
-                   { 'title': 'Settings',
-                     'auth_status': req.isAuthenticated() });
+        find_user( req.user._id, function(err, fu_res) {
+            res.render('main/settings',
+                       { 'title': 'Settings',
+                         'auth_status': req.isAuthenticated(),
+                         'user_data': fu_res.user });
+        });
+    };
+
+    this.edit_settings = function(req, res) {
+        find_user( req.user._id, function(err, fu_res) {
+            fu_res.user.full_name = req.body.user_full_name;
+            fu_res.user.city = req.body.user_city;
+            fu_res.user.save( function(err) {
+                if(err) throw err;
+
+                res.redirect('/settings');
+            });
+        });
     };
 }
 

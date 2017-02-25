@@ -8,6 +8,7 @@
     <td>
       <a href="/all_books">All Books</a>
     </td>
+    <% if(auth_status) { %>
     <td>
       <a href="/my_books">My Books</a>
     </td>
@@ -20,6 +21,7 @@
     <td>
       <a href="/settings">Settings</a>
     </td>
+    <% } %>
     <td>
       <% include auth %>
     </td>

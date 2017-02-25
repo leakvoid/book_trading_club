@@ -11,7 +11,9 @@
   <% book_list.forEach( function(book) { %>
     <tr>
       <td><%= book.name %></td>
+      <% if(auth_status) { %>
       <td><input type="submit" value="Trade" name="book_id[<%= book._id %>]"></td>
+      <% } %>
     </tr>
   <% }); %>
   </table>

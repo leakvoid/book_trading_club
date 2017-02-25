@@ -3,4 +3,10 @@
 
 <h1>Settings</h1>
 
+<form action="/edit_settings" accept-charset="UTF-8" method="post">
+  <input type="text" placeholder="Enter user name" value="<%= user_data.full_name %>" name="user_full_name">
+  <input type="text" placeholder="Enter user city" value="<%= user_data.city %>" name="user_city">
+  <input type="submit" value="Update settings" name="commit">
+</form>
+
 <% include ../shared/footer %>

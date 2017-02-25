@@ -44,6 +44,9 @@ module.exports = function(app, passport) {
     app.route('/settings')
         .get(main_controller.settings);
 
+    app.route('/edit_settings')
+        .post(main_controller.edit_settings);
+
     /* authentication */
     app.route('/logout')
         .get(function(req, res) {

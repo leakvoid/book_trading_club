@@ -11,8 +11,8 @@
   </tr>
   <% transaction_list.forEach( function(t) { %>
   <tr>
-    <td><%= t.seller_name %></td>
-    <td><%= t.book_name %></td>
+    <td><%= t.seller_id %></td>
+    <td><%= t.book_id %></td>
     <td><%= (t.is_accepted ? 'confirmed' : 'pending') %></td>
   </tr>
   <% }); %>

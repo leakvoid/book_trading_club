@@ -20,7 +20,9 @@ var userSchema = new Schema({
         city: String,
         state: String
     },
-    books: [bookSchema]
+    books: [bookSchema],
+    full_name: String,
+    city: String
 });
 
 module.exports = mongoose.model('User', userSchema);
